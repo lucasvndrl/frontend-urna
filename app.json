@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "UrnaEletronica",
+    "slug": "UrnaEletronica",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "UrnaEletronica"
+}
