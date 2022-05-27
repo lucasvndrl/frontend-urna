@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { RegularText } from "../../components/BaseFonts";
+import { Animated } from "react-native";
 
 export const Container = styled.View`
   flex: 1;
@@ -45,7 +46,7 @@ export const ButtonWrapper = styled.TouchableOpacity`
   border-radius: ${hp("1%")}px;
   background-color: #313233;
   position: absolute;
-  bottom: 40;
+  bottom: 40px;
 `;
 
 export const Title = styled(RegularText)`
@@ -65,4 +66,58 @@ export const ButtonText = styled.Text`
 
 export const Loading = styled.ActivityIndicator`
   margin-bottom: ${hp("1%")}px;
+`;
+
+export const ErrorContainer = styled(Animated.View)`
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0);
+  align-items: center;
+`;
+
+export const ErrorModal = styled(Animated.View)`
+  width: ${wp("80%")}px;
+  height: ${hp("40%")}px;
+  background-color: #fd7979;
+  margin-top: ${hp("20%")}px;
+  padding-right: ${wp("15%")}px;
+  padding-left: ${wp("15%")}px;
+  border-radius: ${hp("3%")}px;
+  elevation: 50;
+`;
+
+export const ErrorMessage = styled.Text`
+  font-size: ${hp("3.5%")}px;
+  color: #ffffff;
+  font-weight: 700;
+`;
+
+export const ModalHeader = styled.View`
+  margin-top: ${hp("7%")}px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalBody = styled.View`
+  margin-top: ${hp("5%")}px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const CloseButton = styled.View`
+  width: ${wp("65%")}px;
+  height: 40px;
+  align-items: flex-end;
+  justify-content: center;
+`;
+
+export const CloseModal = styled.TouchableOpacity`
+  background-color: #fd7979;
+  border-radius: ${wp("10%")}px;
+  justify-content: flex-end;
+`;
+
+export const X = styled.Text`
+  font-size: ${hp("3%")}px;
+  color: #ffffff;
+  font-weight: 400;
 `;

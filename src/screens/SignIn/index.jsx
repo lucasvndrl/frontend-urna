@@ -1,15 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import {
   ButtonText,
   ButtonWrapper,
+  CloseButton,
+  CloseModal,
   Container,
   Content,
   CPFInput,
   CPFWrapper,
+  ErrorContainer,
+  ErrorFooterMessage,
+  ErrorMessage,
+  ErrorModal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   Title,
   Wrapper,
+  X,
 } from "./styles";
 import {
+  Animated,
   StyleSheet,
   Text,
   TextInput,
@@ -21,23 +36,55 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import axios from "axios";
 import { Toast } from "../../components/Toast";
-import Modal from "react-native-modal";
-
-const WrapperComponent = () => {
-  return (
-    <View>
-      <Modal isVisible={true}>
-        <View style={{ flex: 1 }}>
-          <Text>I am the modal content!</Text>
-        </View>
-      </Modal>
-    </View>
-  );
-};
+import Modal, { ReactNativeModal } from "react-native-modal";
 
 export function SignIn({ navigation }) {
   const [cpf, setCPF] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  function ErrorComponent({ visible, children }) {
+    const [showModal, setShowModal] = useState(visible);
+    const scaleValue = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+      toggleModal();
+    }, [visible]);
+
+    const toggleModal = () => {
+      if (visible) {
+        setShowModal(true);
+        Animated.spring(scaleValue, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      } else {
+        setShowModal(false);
+      }
+    };
+
+    return (
+      <Modal transparent visible={showModal}>
+        <ErrorContainer>
+          <Animated.View
+            style={[styles.modalError, { transform: [{ scale: scaleValue }] }]}
+          >
+            <CloseButton>
+              <CloseModal onPress={() => setVisible(false)}>
+                <X>X</X>
+              </CloseModal>
+            </CloseButton>
+            <ModalHeader>
+              <ErrorMessage>Oops!</ErrorMessage>
+            </ModalHeader>
+            <ModalBody>
+              <ErrorMessage>Você já votou anteriormente!</ErrorMessage>
+            </ModalBody>
+          </Animated.View>
+        </ErrorContainer>
+      </Modal>
+    );
+  }
 
   const postUser = async () => {
     try {
@@ -50,12 +97,13 @@ export function SignIn({ navigation }) {
         cpf,
       });
     } catch {
-      return WrapperComponent();
+      return setVisible(true);
     }
   };
 
   return (
     <Container>
+      <ErrorComponent visible={visible} />
       <Content>
         <Title>URNA ELETRÔNICA</Title>
         <Wrapper>
@@ -83,5 +131,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     marginTop: 3,
+  },
+  modalError: {
+    width: wp("90%"),
+    height: hp("40%"),
+    backgroundColor: "#fd7979",
+    marginTop: hp("20%"),
+    paddingRight: wp("15%"),
+    paddingLeft: wp("15%"),
+    borderRadius: 30,
+    elevation: 50,
   },
 });
