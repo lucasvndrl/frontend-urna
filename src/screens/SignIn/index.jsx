@@ -32,11 +32,9 @@ import {
   TurboModuleRegistry,
   View,
 } from "react-native";
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
 import axios from "axios";
-import { Toast } from "../../components/Toast";
 import Modal, { ReactNativeModal } from "react-native-modal";
+import api from "../../api";
 
 export function SignIn({ navigation }) {
   const [cpf, setCPF] = useState("");
@@ -88,15 +86,18 @@ export function SignIn({ navigation }) {
 
   const postUser = async () => {
     try {
-      await axios
-        .post("https://2c3e-179-54-213-125.ngrok.io/user/save", {
+      await api
+        .post("/user/save", {
           cpf: cpf,
         })
-        .then(() => {});
+        .then(() => {
+          console.log("minha pomba");
+        });
       navigation.navigate("Urna", {
         cpf,
       });
-    } catch {
+    } catch (e) {
+      console.log(e);
       return setVisible(true);
     }
   };
