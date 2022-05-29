@@ -33,10 +33,8 @@ import {
   TurboModuleRegistry,
   View,
 } from "react-native";
-import axios from "axios";
 import Modal, { ReactNativeModal } from "react-native-modal";
 import api from "../../api";
-import { CPF_MASK } from "../../utils/cpfMask";
 
 export function SignIn({ navigation }) {
   const [cpf, setCPF] = useState("");
@@ -98,7 +96,7 @@ export function SignIn({ navigation }) {
           cpf: cpf,
         })
         .then(() => {
-          console.log("minha pomba");
+          console.log("Funcionou!");
         });
       navigation.navigate("Urna", {
         cpf,

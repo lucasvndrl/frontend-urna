@@ -195,13 +195,13 @@ export const ErrorMessage = styled.Text`
 export const ModalHeader = styled.View`
   background-color: #ffffff;
   width: ${wp("60%")}px;
-  height: ${hp("15%")}px;
+  height: ${hp("5%")}px;
   align-items: center;
   justify-content: center;
 `;
 
 export const ModalBody = styled.View`
-  margin-top: ${hp("5%")}px;
+  margin-top: ${hp("1%")}px;
   align-items: center;
   justify-content: center;
 `;
@@ -231,10 +231,18 @@ export const InfoField = styled.View`
   background-color: #ffffff;
   margin-bottom: ${hp("2%")}px;
   width: ${wp("60%")}px;
-  height: ${hp("15%")}px;
+  height: ${hp("25%")}px;
   justify-content: space-between;
   align-items: center;
   elevation: 20;
+`;
+
+export const PrefeitoWrapper = styled.View`
+  width: ${wp("60%")}px;
+  height: ${hp("20%")}px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 `;
 
 export const InfoTextWrapper = styled.View`
@@ -243,7 +251,6 @@ export const InfoTextWrapper = styled.View`
 `;
 
 export const InfoText = styled.Text`
-  margin-top: ${hp("1%")}px;
   margin-left: ${wp("3%")}px;
   font-size: ${hp("2%")}px;
   color: #000000;
@@ -252,9 +259,43 @@ export const InfoText = styled.Text`
 
 export const InfoPhoto = styled.View`
   justify-content: center;
-  border-radius: ${hp("2%")}px;
+  align-items: flex-start;
+  border-radius: ${hp("6%")}px;
   margin-right: ${wp("1%")}px;
   background-color: #ffffff;
   width: ${wp("20%")}px;
   height: ${hp("12%")}px;
+`;
+
+export const ViceWrapper = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+  left: 1px;
+  top: 100px;
+  border-radius: ${hp("3%")}px;
+  width: ${wp("60%")}px;
+  height: ${hp("10%")}px;
+`;
+
+export const ViceInfoWrapper = styled.View`
+  width: ${wp("30%")}px;
+  height: ${hp("10%")}px;
+`;
+
+export const ViceInfoText = styled.Text`
+  margin-left: ${wp("3%")}px;
+  font-size: ${hp("2%")}px;
+  color: #000000;
+  font-weight: 600;
+`;
+
+export const ViceInfoPhoto = styled.View`
+  justify-content: center;
+  border-radius: ${hp("6%")}px;
+  margin-top: ${wp("3%")}px;
+  margin-right: ${wp("7%")}px;
+  background-color: #ffffff;
+  width: ${wp("10%")}px;
+  height: ${hp("5%")}px;
 `;

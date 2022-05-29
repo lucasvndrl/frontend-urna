@@ -41,29 +41,27 @@ import {
   InfoText,
   InfoPhoto,
   InfoTextWrapper,
+  PrefeitoWrapper,
+  ViceWrapper,
+  ViceInfoWrapper,
+  ViceInfoText,
+  ViceInfoPhoto,
 } from "./styles";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { Candidatos } from "../../utils/candidatos";
+import { ModalConfirma } from "../../components/ModalConfirma";
+import { ModalBranco } from "../../components/ModalBranco";
+import { CandidatoInfo } from "./CandidatoInfo";
 
-export function Urna({ route }) {
-  // const { cpf } = route.params;
-  const [username, setUserName] = useState("");
+export function Urna({ navigation }) {
   const [codigoCandidato, setCodigoCandidato] = useState("");
   const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    try {
-      const response = async () => {
-        await api.get(`/user/list/${cpf}`);
-
-        setUserName(response?.data?.nomeUsuario);
-      };
-    } catch {
-      throw new Error("Deu malote");
-    }
-  }, []);
+  const [confirma, setConfirma] = useState(false);
+  const [branco, setBranco] = useState(false);
+  const [selectedCandidato, setSelectedCandidato] = useState(undefined);
 
   function ModalInfo({ visible, children }) {
     const [showModal, setShowModal] = useState(visible);
@@ -102,62 +100,89 @@ export function Urna({ route }) {
                 </CloseModal>
               </CloseButton>
               <ModalHeader>
-                <ErrorMessage>
-                  Selecione um partido abaixo, para visualização dos candidatos
-                </ErrorMessage>
+                <ErrorMessage>Lista de candidatos elegíveis</ErrorMessage>
               </ModalHeader>
               <ModalBody>
                 <InfoField>
-                  <InfoTextWrapper>
-                    <InfoText>Prefeito Testosterona</InfoText>
-                    <InfoText>12</InfoText>
-                    <InfoText>Partido de Bruno</InfoText>
-                  </InfoTextWrapper>
-                  <InfoPhoto>
-                    <Image
-                      style={{ width: 82, height: 82, borderRadius: 30 }}
-                      source={require("../../assets/bruno.jpeg")}
-                    />
-                  </InfoPhoto>
+                  <PrefeitoWrapper>
+                    <InfoTextWrapper>
+                      <InfoText>Prefeito Testosterona</InfoText>
+                      <InfoText>12</InfoText>
+                      <InfoText>Partido de Bruno</InfoText>
+                    </InfoTextWrapper>
+                    <InfoPhoto>
+                      <Image
+                        style={{ width: 82, height: 82, borderRadius: 50 }}
+                        source={require("../../assets/bruno.jpeg")}
+                      />
+                    </InfoPhoto>
+                  </PrefeitoWrapper>
+                  <ViceWrapper>
+                    <ViceInfoWrapper>
+                      <ViceInfoText>Vice</ViceInfoText>
+                      <ViceInfoText>Testosteroninha Leão</ViceInfoText>
+                    </ViceInfoWrapper>
+                    <ViceInfoPhoto>
+                      <Image
+                        style={{ width: 50, height: 50, borderRadius: 50 }}
+                        source={require("../../assets/funky.jpg")}
+                      />
+                    </ViceInfoPhoto>
+                  </ViceWrapper>
                 </InfoField>
                 <InfoField>
-                  <InfoTextWrapper>
-                    <InfoText>Renato Loureiro</InfoText>
-                    <InfoText>44</InfoText>
-                    <InfoText>Partido dos fortes</InfoText>
-                  </InfoTextWrapper>
-                  <InfoPhoto>
-                    <Image
-                      style={{ width: 82, height: 82, borderRadius: 30 }}
-                      source={require("../../assets/renato.jpg")}
-                    />
-                  </InfoPhoto>
+                  <PrefeitoWrapper>
+                    <InfoTextWrapper>
+                      <InfoText>Renato Loureiro</InfoText>
+                      <InfoText>44</InfoText>
+                      <InfoText>Partido dos fortes</InfoText>
+                    </InfoTextWrapper>
+                    <InfoPhoto>
+                      <Image
+                        style={{ width: 82, height: 82, borderRadius: 50 }}
+                        source={require("../../assets/renato.jpg")}
+                      />
+                    </InfoPhoto>
+                  </PrefeitoWrapper>
+                  <ViceWrapper>
+                    <ViceInfoWrapper>
+                      <ViceInfoText>Vice</ViceInfoText>
+                      <ViceInfoText>Whey Stronda</ViceInfoText>
+                    </ViceInfoWrapper>
+                    <ViceInfoPhoto>
+                      <Image
+                        style={{ width: 50, height: 50, borderRadius: 50 }}
+                        source={require("../../assets/eu.jpeg")}
+                      />
+                    </ViceInfoPhoto>
+                  </ViceWrapper>
                 </InfoField>
                 <InfoField>
-                  <InfoTextWrapper>
-                    <InfoText>Max Verstappen</InfoText>
-                    <InfoText>33</InfoText>
-                    <InfoText>Partido dos rápidos</InfoText>
-                  </InfoTextWrapper>
-                  <InfoPhoto>
-                    <Image
-                      style={{ width: 82, height: 82, borderRadius: 30 }}
-                      source={require("../../assets/max.jpg")}
-                    />
-                  </InfoPhoto>
-                </InfoField>
-                <InfoField>
-                  <InfoTextWrapper>
-                    <InfoText>Victor Neves</InfoText>
-                    <InfoText>66</InfoText>
-                    <InfoText>Partido dos cabeludos</InfoText>
-                  </InfoTextWrapper>
-                  <InfoPhoto>
-                    <Image
-                      style={{ width: 82, height: 82, borderRadius: 30 }}
-                      source={require("../../assets/victor.jpeg")}
-                    />
-                  </InfoPhoto>
+                  <PrefeitoWrapper>
+                    <InfoTextWrapper>
+                      <InfoText>Max Verstappen</InfoText>
+                      <InfoText>33</InfoText>
+                      <InfoText>Partido dos rápidos</InfoText>
+                    </InfoTextWrapper>
+                    <InfoPhoto>
+                      <Image
+                        style={{ width: 82, height: 82, borderRadius: 50 }}
+                        source={require("../../assets/max.jpg")}
+                      />
+                    </InfoPhoto>
+                  </PrefeitoWrapper>
+                  <ViceWrapper>
+                    <ViceInfoWrapper>
+                      <ViceInfoText>Vice</ViceInfoText>
+                      <ViceInfoText>Ayrton Senna</ViceInfoText>
+                    </ViceInfoWrapper>
+                    <ViceInfoPhoto>
+                      <Image
+                        style={{ width: 50, height: 50, borderRadius: 50 }}
+                        source={require("../../assets/ayrton.jpg")}
+                      />
+                    </ViceInfoPhoto>
+                  </ViceWrapper>
                 </InfoField>
               </ModalBody>
             </Animated.View>
@@ -167,22 +192,35 @@ export function Urna({ route }) {
     );
   }
 
-  const handleBranco = () => {
-    // TODO POST COM OBJETO EM BRANCO
-  };
+  useEffect(() => {
+    checkVoto(codigoCandidato);
+  }, [codigoCandidato]);
 
-  const handleConfirma = () => {
-    // TODO POST COM OS DADOS DO VOTO
+  const checkVoto = (codigoCandidato) => {
+    const foundCandidato = Candidatos.find(
+      (candidato) => candidato.codigo === codigoCandidato
+    );
+    setSelectedCandidato(foundCandidato);
   };
 
   return (
     <ScrollView>
       <ModalInfo visible={visible} />
+      <ModalConfirma
+        visible={confirma}
+        setVisible={setConfirma}
+        navigation={navigation}
+      />
+      <ModalBranco
+        visible={branco}
+        setVisible={setBranco}
+        navigation={navigation}
+      />
       <Container>
         <Content>
           <HeaderContent>
             <WelcomeMessage>
-              <WelcomeText>Olá, {username}!</WelcomeText>
+              <WelcomeText>Olá, eleitor!</WelcomeText>
             </WelcomeMessage>
             <IconWrapper onPress={() => setVisible(true)}>
               <Image
@@ -201,28 +239,22 @@ export function Urna({ route }) {
                   maxLength={2}
                   keyboardType="numeric"
                   value={codigoCandidato}
-                  onChangeText={(codigoCandidato) =>
-                    setCodigoCandidato(codigoCandidato)
-                  }
+                  onChangeText={(codigoCandidato) => {
+                    setCodigoCandidato(codigoCandidato);
+                  }}
                 />
               </VotoWrapper>
             </InputVoto>
-            <CandidatoWrapper>
-              <NomePartidoWrapper>
-                <NomePartido>Nome: </NomePartido>
-                <NomePartido>Partido: </NomePartido>
-              </NomePartidoWrapper>
-              <BoxImageCandidato></BoxImageCandidato>
-            </CandidatoWrapper>
+            {selectedCandidato && <CandidatoInfo info={selectedCandidato} />}
           </VoteField>
           <ButtonField>
-            <VotoBranco>
+            <VotoBranco onPress={() => setBranco(true)}>
               <ButtonText>BRANCO</ButtonText>
             </VotoBranco>
             <Corrige onPress={() => setCodigoCandidato("")}>
               <ButtonText>CORRIGE</ButtonText>
             </Corrige>
-            <Confirma>
+            <Confirma onPress={() => setConfirma(true)}>
               <ButtonText>CONFIRMA</ButtonText>
             </Confirma>
           </ButtonField>
