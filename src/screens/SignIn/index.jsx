@@ -25,6 +25,7 @@ import {
 } from "./styles";
 import {
   Animated,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -35,6 +36,7 @@ import {
 import axios from "axios";
 import Modal, { ReactNativeModal } from "react-native-modal";
 import api from "../../api";
+import { CPF_MASK } from "../../utils/cpfMask";
 
 export function SignIn({ navigation }) {
   const [cpf, setCPF] = useState("");
@@ -62,25 +64,30 @@ export function SignIn({ navigation }) {
     };
 
     return (
-      <Modal transparent visible={showModal}>
-        <ErrorContainer>
-          <Animated.View
-            style={[styles.modalError, { transform: [{ scale: scaleValue }] }]}
-          >
-            <CloseButton>
-              <CloseModal onPress={() => setVisible(false)}>
-                <X>X</X>
-              </CloseModal>
-            </CloseButton>
-            <ModalHeader>
-              <ErrorMessage>Oops!</ErrorMessage>
-            </ModalHeader>
-            <ModalBody>
-              <ErrorMessage>Você já votou anteriormente!</ErrorMessage>
-            </ModalBody>
-          </Animated.View>
-        </ErrorContainer>
-      </Modal>
+      <ScrollView>
+        <Modal transparent visible={showModal}>
+          <ErrorContainer>
+            <Animated.View
+              style={[
+                styles.modalError,
+                { transform: [{ scale: scaleValue }] },
+              ]}
+            >
+              <CloseButton>
+                <CloseModal onPress={() => setVisible(false)}>
+                  <X>X</X>
+                </CloseModal>
+              </CloseButton>
+              <ModalHeader>
+                <ErrorMessage>Oops!</ErrorMessage>
+              </ModalHeader>
+              <ModalBody>
+                <ErrorMessage>Você já votou anteriormente!</ErrorMessage>
+              </ModalBody>
+            </Animated.View>
+          </ErrorContainer>
+        </Modal>
+      </ScrollView>
     );
   }
 
@@ -110,6 +117,7 @@ export function SignIn({ navigation }) {
         <Wrapper>
           <CPFWrapper>
             <CPFInput
+              maxLength={11}
               placeholder="Qual é o seu CPF?"
               placeholderTextColor="#9a9a9a"
               keyboardType="numeric"
