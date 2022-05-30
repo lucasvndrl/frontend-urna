@@ -11,7 +11,7 @@ const { Navigator, Screen, RootStack } = createNativeStackNavigator();
 export default function Stack() {
   return (
     <Navigator
-      initialRouteName="Urna"
+      initialRouteName="SignIn"
       screenOptions={{
         headerShown: false,
       }}

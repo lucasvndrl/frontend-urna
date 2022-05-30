@@ -3,7 +3,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { RegularText } from "../../components/BaseFonts";
 import { Animated } from "react-native";
 
 export const Container = styled.View`
@@ -49,7 +48,7 @@ export const ButtonWrapper = styled.TouchableOpacity`
   bottom: 40px;
 `;
 
-export const Title = styled(RegularText)`
+export const Title = styled.Text`
   font-size: ${hp("3.5%")}px;
   color: #313233;
   margin-bottom: ${hp("4%")}px;
