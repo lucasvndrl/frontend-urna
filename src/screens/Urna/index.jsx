@@ -248,10 +248,7 @@ export function Urna({ navigation }) {
             {selectedCandidato && <CandidatoInfo info={selectedCandidato} />}
           </VoteField>
           <ButtonField>
-            <VotoBranco
-              onPress={() => setBranco(true)}
-              disabled={!selectedCandidato}
-            >
+            <VotoBranco onPress={() => setBranco(true)}>
               <ButtonText>BRANCO</ButtonText>
             </VotoBranco>
             <Corrige onPress={() => setCodigoCandidato("")}>
